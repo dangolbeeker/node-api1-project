@@ -18,7 +18,7 @@ server.post('/api/users', (req, res) => {
     res.send();
 });
 
-
+//Get /api/users
 server.get('/api/users', (req, res) => {
     //.find() returns a promise 
     db.find()
@@ -26,9 +26,27 @@ server.get('/api/users', (req, res) => {
         res.status(200).json(users);
     })
     .catch(err => {
-        res.status(500).json({ message: 'error getting users'});
+        res.status(500).json({ error: "The users information could not be retrieved."});
     });
 });
+
+//Get /api/users/:id
+server.get("/api/users/:id", (req, res) => {
+    const id = req.params.id;
+    db.findById(id)
+      .then(id => {
+        res.status(200).json({
+          success: Yahtzee,
+          id
+        });
+      })
+      .catch(err => {
+        res.status(500).json({
+          success: false,
+          message: `Unable to locate user with id ${id}`
+        });
+      });
+  });
 
 
 
