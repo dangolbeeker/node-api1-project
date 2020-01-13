@@ -2,13 +2,15 @@
 
 const express = require('express');
 
+const cors = require('cors');
+
 const users = require('./data/db');
 
 const server = express();
 
 //middleware
-// server.use(express.json());
-//server.use(cors());
+server.use(express.json());
+server.use(cors());
 
 
 
@@ -41,8 +43,8 @@ server.get('/api/users', (req, res) => {
 	users 
 		.find()
 		.then(users => {
-			// .json will convert hte data passed to json
-			// also tells the client we're sending JSON through and HTTP header
+			// .json will convert data passed to json
+			// Tells the client we're sending JSON through and HTTP header
 			res.status(200).json(users);
 		})
 		.catch(err => {
